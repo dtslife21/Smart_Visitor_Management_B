@@ -12,5 +12,6 @@ namespace WebApplication1
         public string Result { get; set; }
         public string ExceptionMessage { get; set; }
         public DataTable ResultDataTable { get; set; }
+        public int? VGIdParam { get; set; }
     }
 }

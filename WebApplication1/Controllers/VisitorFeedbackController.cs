@@ -22,7 +22,7 @@ namespace WebApplication1.Controllers
         public ActionResult AddFeedback(VisitorFeedbackRequestAPI requestAPI)
         {
             var userId = HttpContext.Items["UserId"]?.ToString();
-         // if (!string.IsNullOrEmpty(userId))      // ✅ only set if not null
+         // if (!string.IsNullOrEmpty(userId))      
 
                 requestAPI.P_UID = userId;
             return Json(_VisitorFeedback.AddFeedback(requestAPI), JsonRequestBehavior.AllowGet);

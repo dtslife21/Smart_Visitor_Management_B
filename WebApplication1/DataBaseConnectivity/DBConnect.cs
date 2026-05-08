@@ -26,11 +26,11 @@ namespace WebApplication1.Database_Layer
             //  "User id=sa;" +
             //  "Password=admin@123; MultipleActiveResultSets=true;");
 
-            //_connectionString = string.Format("Data Source=(localdb)\\MSSQLLocalDB; " +
-            //  "Initial Catalog=VMS_DB;" +
-            //  " MultipleActiveResultSets=true; Integrated Security=True;");
+            _connectionString = string.Format("Data Source=(localdb)\\MSSQLLocalDB; " +
+              "Initial Catalog=vms_NEW_db;" +
+              " MultipleActiveResultSets=true; Integrated Security=True;");
 
-             _connectionString = "Data Source=ALL-SER-LAP01\\DTSSQLSERVER; Initial Catalog=Visitor_managment_DB; User id=sa; Password=DSadmin@123; MultipleActiveResultSets=true;";
+            //_connectionString = "Data Source=ALL-SER-LAP01\\DTSSQLSERVER; Initial Catalog=Visitor_managment_DB; User id=sa; Password=DSadmin@123; MultipleActiveResultSets=true;";
 
         }
 
@@ -119,7 +119,15 @@ namespace WebApplication1.Database_Layer
                 {
                     Direction = ParameterDirection.Output
                 };
+
                 cmd.Parameters.Add(exceptionParam);
+
+
+                SqlParameter VGIdParam = new SqlParameter("@VGIdParam", SqlDbType.VarChar, -1)
+                {
+                    Direction = ParameterDirection.Output
+                };
+                cmd.Parameters.Add(VGIdParam);
 
                 // Map input properties
                 Type type = requestAPI.GetType();
@@ -154,6 +162,8 @@ namespace WebApplication1.Database_Layer
                         resultParam.Value.ToString() : "Success";
                     result.ExceptionMessage = exceptionParam.Value != DBNull.Value ?
                         exceptionParam.Value.ToString() : null;
+                    result.VGIdParam = VGIdParam.Value != DBNull.Value ?
+                       Convert.ToInt32(VGIdParam.Value) : (int?)null;
                 }
                 catch (Exception ex)
                 {

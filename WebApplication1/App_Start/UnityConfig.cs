@@ -23,12 +23,7 @@ namespace WebApplication1
             container.RegisterType<IGatePass, DAGatePass>();
             container.RegisterType<IVehicle, DAVehicle>();
             container.RegisterType<IItemCarried, DAItemCarried>();
-            container.RegisterType<IBlacklist, DABlacklist>();
-            container.RegisterType<IAlert, DAAlert>();
-            container.RegisterType<IVisitLog, DAVisitLog>();
             container.RegisterType<IVisitGroup, DAVisitGroup>();
-            container.RegisterType<IAdminItemList, DAAdminItemList>();
-            container.RegisterType<IVisitorFeedback, DAVisitorFeedback>();
 
             // Set the dependency resolver for MVC
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));

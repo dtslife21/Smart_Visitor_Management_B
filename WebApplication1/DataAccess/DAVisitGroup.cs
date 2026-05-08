@@ -27,22 +27,31 @@ namespace WebApplication1.DataAccess
             using (var dbConnect = new DBconnect())
             {
                 ProcedureDBModel res = dbConnect.ProcedureRead(requestAPI, ProcedureName);
+
                 if (res.ResultStatusCode == "1")
                 {
                     result.StatusCode = 200;
                     result.Result = "Success!!";
+
+                    result.ResultSet = new
+                    {
+                        VGIdParam = res.VGIdParam
+                    };
                 }
                 else
                 {
-                    LogHandler.WriteToLog(res.ExceptionMessage, System.Reflection.MethodBase.GetCurrentMethod().Name);
+                    LogHandler.WriteToLog(res.ExceptionMessage,
+                        System.Reflection.MethodBase.GetCurrentMethod().Name);
+
                     result.StatusCode = 500;
-                    result.Result = string.IsNullOrEmpty(res.ExceptionMessage) ? res.Result : res.ExceptionMessage;
+                    result.Result = string.IsNullOrEmpty(res.ExceptionMessage)
+                        ? res.Result
+                        : res.ExceptionMessage;
                 }
 
                 return result;
             }
         }
-
         //2. Update Visit Group
         public Response UpdateVisitGroup(VisitGroupRequestAPI requestAPI)
         {
